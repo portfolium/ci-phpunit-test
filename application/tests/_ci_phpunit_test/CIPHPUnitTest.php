@@ -11,6 +11,7 @@
 class CIPHPUnitTest
 {
 	private static $loader_class = 'CI_Loader';
+	private static $controller_class;
 	private static $autoload_dirs;
 
 	/**
@@ -108,13 +109,45 @@ class CIPHPUnitTest
 	{
 		if (! self::wiredesignzHmvcInstalled())
 		{
-			new CI_Controller();
+			if (self::hasMyController())
+			{
+				new self::$controller_class;
+			}
+			else
+			{
+				new CI_Controller();
+			}
 		}
 		else
 		{
 			new CI();
 			new MX_Controller();
 		}
+	}
+
+	private static function hasMyController()
+	{
+		if (self::$controller_class !== null) {
+			return self::$controller_class !== 'CI_Controller';
+		}
+
+		$my_controller_file =
+			APPPATH . 'core/' . config_item('subclass_prefix') . 'Controller.php';
+
+		if (file_exists($my_controller_file))
+		{
+			$controller_class = config_item('subclass_prefix') . 'Controller';
+			if ( ! class_exists($controller_class))
+			{
+				require $my_controller_file;
+			}
+
+			self::$controller_class = $controller_class;
+			return true;
+		}
+
+		self::$controller_class = 'CI_Controller';
+		return false;
 	}
 
 	public static function wiredesignzHmvcInstalled()
