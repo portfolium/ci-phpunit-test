@@ -1,1 +1,14 @@
+# original ignore
 _ci_phpunit_test/tmp/
+
+# Base files to copy
+Bootstrap.php
+DbTestCase.php
+phpunit.xml
+TestCase.php
+UnitTestCase.php
+
+# Examples to copy
+controllers/Welcome_test.php
+mocks/autoloader.php
+mocks/libraries/email.php
