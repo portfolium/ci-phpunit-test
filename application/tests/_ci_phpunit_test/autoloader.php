@@ -18,6 +18,9 @@ $autoload_dirs = CIPHPUnitTest::getAutoloadDirs();
 $autoloader = new CIPHPUnitTestAutoloader($cache, $autoload_dirs);
 spl_autoload_register([$autoloader, 'load']);
 
+// this helper is needed in some of the config files
+require_once APPPATH . 'helpers' . DIRECTORY_SEPARATOR . 'env_helper.php';
+
 // Register CodeIgniter's tests/mocks/autoloader.php
 define('SYSTEM_PATH', BASEPATH);
 require TESTPATH .'mocks/autoloader.php';
