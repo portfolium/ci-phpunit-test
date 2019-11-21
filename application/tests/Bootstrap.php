@@ -404,6 +404,9 @@ MonkeyPatchManager::init([
 define('TESTPATH', APPPATH.'tests'.DIRECTORY_SEPARATOR);
 */
 
+// this helper is needed in some of the config files
+require_once APPPATH . 'helpers' . DIRECTORY_SEPARATOR . 'env_helper.php';
+
 require __DIR__ . '/_ci_phpunit_test/CIPHPUnitTest.php';
 
 CIPHPUnitTest::init();
