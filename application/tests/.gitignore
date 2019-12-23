@@ -12,3 +12,6 @@ UnitTestCase.php
 controllers/Welcome_test.php
 mocks/autoloader.php
 mocks/libraries/email.php
+
+# ignore output files
+.phpunit.result.cache
