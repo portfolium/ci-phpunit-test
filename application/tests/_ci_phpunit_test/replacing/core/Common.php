@@ -349,33 +349,36 @@ function &get_config(Array $replace = array(), $reset = FALSE)
     return $config;
 }
 
-/**
- * Returns the specified config item
- *
- * @staticvar array $_config
- *
- * @param string $item
- * @param bool   $reset
- *
- * @return type
- */
-function config_item($item, $reset = FALSE)
+if ( ! function_exists('config_item'))
 {
-    static $_config;
-
-    // Reset static variable
-    // added by ci-phpunit-test
-    if ($reset)
+    /**
+     * Returns the specified config item
+     *
+     * @staticvar array $_config
+     *
+     * @param string $item
+     * @param bool   $reset
+     *
+     * @return type
+     */
+    function config_item($item, $reset = FALSE)
     {
-        $config = null;
-        return;
-    }
+        static $_config;
 
-    if (empty($_config))
-    {
-        // references cannot be directly assigned to static variables, so we use an array
-        $_config[0] =& get_config();
-    }
+        // Reset static variable
+        // added by ci-phpunit-test
+        if ($reset)
+        {
+            $config = null;
+            return;
+        }
 
-    return isset($_config[0][$item]) ? $_config[0][$item] : NULL;
+        if (empty($_config))
+        {
+            // references cannot be directly assigned to static variables, so we use an array
+            $_config[0] =& get_config();
+        }
+
+        return isset($_config[0][$item]) ? $_config[0][$item] : NULL;
+    }
 }
